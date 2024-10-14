@@ -1,38 +1,73 @@
 <!DOCTYPE html>
-<title>Pub/Sub Demo</title>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-  integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-  crossorigin="anonymous"
-/>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pub/Sub Demo</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous"
+  />
+</head>
 <body>
   <div class="card" style="width: 50%; margin: 5%">
     <div class="card-body">
       <h5 class="card-title">Send an order</h5>
-      <form action="" method="post" name="name_textbox">
+      <!-- Updated form action to point to the Flask route -->
+      <form action="/" method="post" name="order_form">
+        
+        <!-- Display error if any -->
+        {% if error %}
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+        {% endif %}
+        
+        <!-- Customer Name Input -->
         <div class="form-group">
-          <label>Customer: </label>
+          <label for="customer">Customer:</label>
           <input
             type="text"
             class="form-control"
+            id="customer"
             name="customer"
             value="{{ customer }}"
+            placeholder="Enter customer name"
+            required
           />
         </div>
+
+        <!-- Order Total Input -->
         <div class="form-group">
-          <label>Order Total: </label>
+          <label for="amount">Order Total:</label>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text">$</span>
             </div>
-            <input type="text" class="form-control" name="amount" value="{{ amount }}" />
+            <input
+              type="number"
+              class="form-control"
+              id="amount"
+              name="amount"
+              value="{{ amount }}"
+              placeholder="Enter total amount"
+              min="0"
+              step="0.01"
+              required
+            />
           </div>
         </div>
+
+        <!-- Submit Button -->
         <div class="form-group">
-          <button class="btn btn-dark">Send</button>
+          <button type="submit" class="btn btn-dark">Send</button>
         </div>
       </form>
     </div>
   </div>
-</body>
+
+  <!-- Optional JavaScript for Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+1QKtv3Rn7W3mgPxhU9p5+ndbAl4O
